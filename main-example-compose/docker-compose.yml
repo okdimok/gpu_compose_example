@@ -17,6 +17,9 @@ services:
           - driver: nvidia
             device_ids: ['0'] 
             capabilities: [gpu]
+    ulimits:
+      memlock: -1
+      stack: 67108864
     network_mode: host # or use ports
     # ports: # or use network_mode: host
     #   - "9988:8888"
@@ -41,4 +44,6 @@ services:
     ipc: host # for faster multiprocess communication. One can also just set relatively large shm-size
     shm_size: 4G
     working_dir: /workspace/ext
-    command: /bin/bash -c "sleep infinity"
+    # command: /bin/bash -c "sleep infinity"
+    command: /bin/bash -c "source ~/.bashrc && jupyter lab --ip=0.0.0.0 --port=8000 --allow-root --no-browser --NotebookApp.token='vscode_demo' --NotebookApp.allow_origin='*' --notebook-dir=/"
+
